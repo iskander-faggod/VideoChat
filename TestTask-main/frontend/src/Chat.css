@@ -1,0 +1,57 @@
+.card {
+    display: flex;
+    justify-content: space-around;
+    margin: 30px;
+    min-height: 30rem;
+}
+form {
+    max-width: 350px;
+    border-radius: 5px;
+    padding: 30px;
+    box-shadow: 0px 3px 24px -8px rgba(0, 0, 0, 0.75);
+}
+
+.name-field {
+    margin-bottom: 40px;
+}
+h1{
+    text-align: center;
+}
+Button {
+    margin-top: 20px;
+    padding: 10px;
+    background: transparent;
+    border-radius: 5px;
+}
+
+.render-chat {
+    position: relative;
+    left: 5rem;
+    border-radius: 30px;
+    background: #f3b8e5;
+    width: 20rem;
+    height: 20rem;
+    padding: 3rem;
+    display: grid;
+    justify-content: center;
+    align-content: flex-start;
+}
+
+h3 {
+    color: #f30057;
+}
+
+span {
+    color: black;
+}
+
+form{
+    margin-right: 12rem;
+    border-radius: 30px;
+    background: #f3b8e5;
+    height: 20rem;
+    padding: 3rem;
+    display: grid;
+    justify-content: center;
+    align-content: flex-start;
+}

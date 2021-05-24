@@ -1,0 +1,48 @@
+.container {
+	display: grid;
+	grid-template-columns: 7fr 3fr;
+	margin-top: 10rem
+}
+
+.myId {
+	margin-right: 12rem;
+	border-radius: 30px;
+	background: #f3b8e5;
+	height: 20rem;
+	padding: 3rem;
+	display: grid;
+	justify-content: center;
+	align-content: flex-start;
+}
+
+.call-button {
+	text-align: center;
+	margin-top: 4rem;
+
+}
+
+.video-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	justify-content: center;
+	align-content: center;
+	margin-top: 10rem;
+	margin-left: 10rem;
+}
+
+.caller {
+	text-align: center;
+	color: #fff;
+	position: relative;
+	left: 18rem;
+}
+
+body {
+	background: #efd1e6;
+}
+
+.user-video{
+	width: 500px;
+	border-radius: 5%;
+}
+
