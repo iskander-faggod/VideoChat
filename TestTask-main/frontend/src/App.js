@@ -8,9 +8,11 @@ import "./App.css"
 import Chat from "./Chat";
 
 
-
+//подключение сокета к клиенту
 const socket = io.connect('http://localhost:5000')
+
 function App() {
+	//обьявление состояний для видео звонка
 	const [me, setMe] = useState("")
 	const [stream, setStream] = useState()
 	const [receivingCall, setReceivingCall] = useState(false)
@@ -26,12 +28,14 @@ function App() {
 
 
 
+	//использую useEffect, чтобы избавиться от жизненных циклов и классов
 	useEffect(() => {
 		navigator.mediaDevices.getUserMedia({video: true, audio: true}).then((stream) => {
 			setStream(stream)
 			myVideo.current.srcObject = stream
 		})
 
+		//обработка событий подключения и звонка
 		socket.on("me", (id) => {
 			setMe(id)
 		})
@@ -46,12 +50,15 @@ function App() {
 	}, [])
 
 
+	//звонок участнику
 	const callUser = (id) => {
+		//подключаю peer для установки видео связи
 		const peer = new Peer({
 			initiator: true,
 			trickle: false,
 			stream: stream
 		})
+
 		peer.on("signal", (data) => {
 			socket.emit("callUser", {
 				userToCall: id,
@@ -61,9 +68,7 @@ function App() {
 			})
 		})
 		peer.on("stream", (stream) => {
-
 			userVideo.current.srcObject = stream
-
 		})
 		socket.on("callAccepted", (signal) => {
 			setCallAccepted(true)
@@ -73,6 +78,7 @@ function App() {
 		connectionRef.current = peer
 	}
 
+	//ответ другого юзера
 	const answerCall = () => {
 		setCallAccepted(true)
 		const peer = new Peer({
@@ -91,11 +97,13 @@ function App() {
 		connectionRef.current = peer
 	}
 
+	//конец вызова
 	const leaveCall = () => {
 		setCallEnded(true)
 		connectionRef.current.destroy()
 	}
 
+	//верстка
 	return (
 		<>
 			<h1 style={{textAlign: "center", color: 'black', fontSize: '100px'}}>Test Task</h1>

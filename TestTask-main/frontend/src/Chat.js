@@ -6,13 +6,17 @@ import "./Chat.css"
 import Button from "@material-ui/core/Button"
 import io from "socket.io-client"
 
+//в верстке пробрасываю пропсы(имя пользователя)
 function Chat(props) {
+    //обьявление состояний
     const [state, setState] = useState({message: "", name: ""})
     const [chat, setChat] = useState([])
     const {name} = props
     const socketRef = useRef()
 
+
     useEffect(
+        //коннект к сокету, заполняю массив с сообщениями
         () => {
             socketRef.current = io.connect("http://localhost:5000")
             socketRef.current.on("message", ({name, message}) => {
@@ -23,10 +27,12 @@ function Chat(props) {
         [chat]
     )
 
+    //считываю значение сообщений с event.target
     const onTextChange = (e) => {
         setState({...state, [e.target.name]: e.target.value})
     }
 
+    //обработка отправки сообщения
     const onMessageSubmit = (e) => {
         const {name, message} = state
         socketRef.current.emit("message", {name, message})
@@ -35,6 +41,7 @@ function Chat(props) {
         console.log(message)
     }
 
+    //вывожу содержимое чата
     const renderChat = () => {
         return chat.map(({name, message}, index) => (
             <div key={index}>
@@ -45,6 +52,7 @@ function Chat(props) {
         ))
     }
 
+    //верстка
     return (
         <div className="card">
             <form onSubmit={onMessageSubmit}>

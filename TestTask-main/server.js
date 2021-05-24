@@ -3,12 +3,17 @@ const http = require("http")
 const app = express()
 const server = http.createServer(app)
 
+//Подключение сокета
 const io = require("socket.io")(server, {
 	cors: {
 		origin: "http://localhost:3000",
 		methods: [ "GET", "POST" ]
 	}
 })
+
+//Обработка определенных запросов
+// (отправка сообщений, подключения, окончания звонка,
+// ответа на звонок, и звонка)
 
 io.on("connection", (socket) => {
 	socket.emit("me", socket.id)
@@ -24,6 +29,7 @@ io.on("connection", (socket) => {
 		socket.broadcast.emit("callEnded")
 	})
 
+	//передаем на клиентскую часть
 	socket.on("callUser", (data) => {
 		io.to(data.userToCall).emit("callUser", {
 			signal: data.signalData,
